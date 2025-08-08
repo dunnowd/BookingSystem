@@ -7,7 +7,6 @@ namespace BookingSystem.Data
     {
         public DbSet<Master> Masters { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<MasterService> MasterServices { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base (options)
@@ -15,12 +14,6 @@ namespace BookingSystem.Data
             
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Master>()
-                .HasMany(e => e.Services)
-                .WithMany(e => e.Masters)
-                .UsingEntity<MasterService>();
-        }
+        
     }
 }

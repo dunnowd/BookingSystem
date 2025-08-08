@@ -8,6 +8,5 @@
         public decimal Cost { get; set; }
 
         public List<Master> Masters { get; } = new();
-        public List<MasterService> MasterServices { get; } = new();
     }
 }

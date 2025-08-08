@@ -8,6 +8,6 @@ namespace BookingSystem.DTOs.Master
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
 
-        public List<ServiceDto> Services { get; } = new();
+        public List<ServiceDto> Services { get; set; } = new();
     }
 }

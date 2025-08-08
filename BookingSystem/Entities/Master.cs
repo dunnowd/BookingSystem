@@ -6,6 +6,5 @@
         public string Name { get; set; } = string.Empty;
 
         public List<Service> Services { get; } = new();
-        public List<MasterService> MasterServices { get; } = new();
     }
 }
