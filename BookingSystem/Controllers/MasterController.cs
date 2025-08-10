@@ -1,0 +1,86 @@
+﻿using BookingSystem.DTOs.Master;
+using BookingSystem.Interface;
+using BookingSystem.Repositories;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BookingSystem.Controllers
+{
+    [ApiController]
+    [Route("api/masters")]
+    public class MasterController : ControllerBase
+    {
+        private readonly IMasterRepository _masterRepos;
+
+        public MasterController(IMasterRepository repos)
+        {
+            _masterRepos = repos;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _masterRepos.GetAllAsync());
+        }
+
+        [HttpGet("short")]
+        public async Task<IActionResult> GetAllShort()
+        {
+            return Ok(await _masterRepos.GetAllShortAsync());
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var master = await _masterRepos.GetByIdAsync(id);
+
+            if(master == null)
+                return NotFound();
+
+            return Ok(master);
+        }
+
+        //[HttpGet("{id:int}")]
+        //public async Task<IActionResult> GetByIdShort([FromRoute] int id)
+        //{
+        //    var master = await _masterRepos.GetByIdShortAsync(id);
+
+        //    if (master == null)
+        //        return NotFound();
+
+        //    return Ok(master);
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateMasterDto masterDto)
+        {
+            var master = await _masterRepos.CreateAsync(masterDto);
+
+            if (master == null)
+                return BadRequest();
+
+            return CreatedAtAction(nameof(GetById), new {id = master.Id}, master);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update([FromBody] UpdateMasterDto masterDto, int id)
+        {
+            var master = await _masterRepos.UpdateAsync(masterDto, id);
+
+            if (master == null)
+                return NotFound();
+
+            return Ok(master);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var master = await _masterRepos.DeleteByIdAsync(id);
+
+            if (master == null)
+                return NotFound();
+
+            return Ok(master);
+        }
+    }
+}

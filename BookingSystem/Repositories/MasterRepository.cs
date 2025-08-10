@@ -18,6 +18,7 @@ namespace BookingSystem.Repositories
         public async Task<List<MasterDto>> GetAllAsync()
         {
             return await _context.Masters
+                .Include(x=>x.Services)
                 .Select(x => x.ToMasterDto())
                 .ToListAsync();
         }
