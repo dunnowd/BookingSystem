@@ -12,5 +12,7 @@ namespace BookingSystem.Interface
         Task<MasterDto?> CreateAsync(CreateMasterDto master);
         Task<MasterDto?> UpdateAsync(UpdateMasterDto master, int id);
         Task<MasterDto?> DeleteByIdAsync(int id);
+        Task<MasterDto?> LinkServiceToMasterAsync(int masterId, int serviceId);
+        Task<MasterDto?> RemoveServiceToMasterAsync(int masterId, int serviceId);
     }
 }

@@ -39,17 +39,6 @@ namespace BookingSystem.Controllers
             return Ok(master);
         }
 
-        //[HttpGet("{id:int}")]
-        //public async Task<IActionResult> GetByIdShort([FromRoute] int id)
-        //{
-        //    var master = await _masterRepos.GetByIdShortAsync(id);
-
-        //    if (master == null)
-        //        return NotFound();
-
-        //    return Ok(master);
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateMasterDto masterDto)
         {
@@ -79,6 +68,28 @@ namespace BookingSystem.Controllers
 
             if (master == null)
                 return NotFound();
+
+            return Ok(master);
+        }
+
+        [HttpPost("{masterId:int}/master-services/{serviceId:int}")]
+        public async Task<IActionResult> LinkServicesToMaster(int masterId, int serviceId)
+        {
+            var master = await _masterRepos.LinkServiceToMasterAsync(masterId, serviceId);
+
+            if (master == null)
+                return BadRequest();
+
+            return Ok(master);
+        }
+
+        [HttpDelete("{masterId:int}/master-services/{serviceId:int}")]
+        public async Task<IActionResult> RemoveServicesFromMaster(int masterId, int serviceId)
+        {
+            var master = await _masterRepos.RemoveServiceToMasterAsync(masterId, serviceId);
+
+            if (master == null)
+                return BadRequest();
 
             return Ok(master);
         }

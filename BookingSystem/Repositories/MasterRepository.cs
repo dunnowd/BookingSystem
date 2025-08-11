@@ -83,5 +83,39 @@ namespace BookingSystem.Repositories
             await _context.SaveChangesAsync();
             return editMaster.ToMasterDto();
         }
+
+        public async Task<MasterDto?> LinkServiceToMasterAsync(int masterId, int serviceId)
+        {
+            var master = await _context.Masters.FindAsync(masterId);
+            
+            if ( master == null) { return null; }
+
+            var service = await _context.Services.FindAsync(serviceId);
+
+            if (service == null) { return null; }
+
+            master.Services.Add(service);
+            await _context.SaveChangesAsync();
+
+            return master.ToMasterDto();
+        }
+
+        public async Task<MasterDto?> RemoveServiceToMasterAsync(int masterId, int serviceId)
+        {
+            var master = await _context.Masters
+                .Include(x=>x.Services)
+                .FirstOrDefaultAsync(x=>x.Id == masterId);
+
+            if (master == null) { return null; }
+
+            var service = await _context.Services.FindAsync(serviceId);
+
+            if (service == null) { return null; }
+
+            master.Services.Remove(service);
+            await _context.SaveChangesAsync();
+
+            return master.ToMasterDto();
+        }
     }
 }
