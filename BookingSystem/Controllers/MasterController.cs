@@ -22,12 +22,6 @@ namespace BookingSystem.Controllers
             return Ok(await _masterRepos.GetAllAsync());
         }
 
-        [HttpGet("short")]
-        public async Task<IActionResult> GetAllShort()
-        {
-            return Ok(await _masterRepos.GetAllShortAsync());
-        }
-
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -42,6 +36,9 @@ namespace BookingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateMasterDto masterDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var master = await _masterRepos.CreateAsync(masterDto);
 
             if (master == null)
@@ -53,6 +50,9 @@ namespace BookingSystem.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromBody] UpdateMasterDto masterDto, int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var master = await _masterRepos.UpdateAsync(masterDto, id);
 
             if (master == null)

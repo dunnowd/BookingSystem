@@ -36,6 +36,9 @@ namespace BookingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateServiceDto serviceDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var service = await _serviceRepos.CreateAsync(serviceDto);
 
             if (service == null)
@@ -58,6 +61,9 @@ namespace BookingSystem.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update([FromBody] UpdateServiceDto serviceDto, [FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var service = await _serviceRepos.UpdateAsync(serviceDto, id);
 
             if (service == null)

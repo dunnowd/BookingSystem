@@ -23,13 +23,6 @@ namespace BookingSystem.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<MasterShortDto>> GetAllShortAsync()
-        {
-            return await _context.Masters
-                .Select(x => x.ToMasterShortDto())
-                .ToListAsync();
-        }
-
         public async Task<MasterDto?> GetByIdAsync(int id)
         {
             var master = await _context.Masters.FindAsync(id);
@@ -37,15 +30,6 @@ namespace BookingSystem.Repositories
             if (master == null) { return null; }
 
             return master.ToMasterDto();
-        }
-
-        public async Task<MasterShortDto?> GetByIdShortAsync(int id)
-        {
-            var master = await _context.Masters.FindAsync(id);
-
-            if (master == null) { return null; }
-
-            return master.ToMasterShortDto();
         }
 
         public async Task<MasterDto?> CreateAsync(CreateMasterDto master)

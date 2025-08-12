@@ -16,7 +16,7 @@ builder.Services.AddScoped<IMasterRepository, MasterRepository>();
 builder.Services.AddCors();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

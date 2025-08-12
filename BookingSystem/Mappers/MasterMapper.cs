@@ -15,15 +15,6 @@ namespace BookingSystem.Mappers
             };
         }
 
-        public static MasterShortDto ToMasterShortDto(this Master masterModel)
-        {
-            return new MasterShortDto()
-            {
-                Id = masterModel.Id,
-                Name = masterModel.Name,
-            };
-        }
-
         public static Master ToMasterFromCreateDto(this CreateMasterDto createMasterDto)
         {
             return new Master()
